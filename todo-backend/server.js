@@ -8,7 +8,7 @@ const app = express();
 let todos = [];
 
 //Create a new todo item
-app.poast('/todos', (req, res) => {
+app.post('/todos', (req, res) => {
     const {title, description} = req.body;
     const newTodo = {
         id: todos.length + 1,
