@@ -54,8 +54,15 @@ app.post('/todos', async (req, res) => {
 })
 
 //Get all items
-app.get('/todos', (req, res) => {
-    res.json(todos);
+app.get('/todos', async (req, res) => {
+    try{
+        const todos = await todoModel.find();
+        res.json(todos);
+    } catch (error){
+        console.log(error)
+        res.status(500).json({message: erro.message});
+    }
+    
 })
 
 //Start the server
