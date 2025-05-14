@@ -25,19 +25,29 @@ const todoSchema = new mongoose.Schema({
 })
 
 //creating model
-const todoModel = mongoose.model('Todo', todoSchema);
+const todoModel = mongoose.model('Todo', todoSchema)
 
 //Create a new todo item
-app.post('/todos', (req, res) => {
+app.post('/todos', async (req, res) => {
     const {title, description} = req.body;
-    const newTodo = {
-        id: todos.length + 1,
-        title,
-        description
-    };
-    todos.push(newTodo);
-    console.log(todos);
-    res.status(201).json(newTodo);
+    // const newTodo = {
+    //     id: todos.length + 1,
+    //     title,
+    //     description
+    // };
+    // todos.push(newTodo);
+    // console.log(todos);
+
+    try{
+        const newTodo = new todoModel({title, description});
+        await newTodo.save();
+        res.status(201).json(newTodo);
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500);
+    }
+
 })
 
 //Get all items
