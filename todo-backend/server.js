@@ -20,7 +20,10 @@ mongoose.connect('mongodb://localhost:27017/mern-app')
 
 //creating schema
 const todoSchema = new mongoose.Schema({
-    title:String,
+    title:{
+        required:true,
+        type:String
+    },
     description:String
 })
 
@@ -45,7 +48,7 @@ app.post('/todos', async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        res.status(500);
+        res.status(500).json({message: error.message});
     }
 
 })
