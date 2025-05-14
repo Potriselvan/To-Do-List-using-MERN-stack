@@ -18,6 +18,15 @@ mongoose.connect('mongodb://localhost:27017/mern-app')
     console.log(err)
 })
 
+//creating schema
+const todoSchema = new mongoose.Schema({
+    title:String,
+    description:String
+})
+
+//creating model
+const todoModel = mongoose.model('Todo', todoSchema);
+
 //Create a new todo item
 app.post('/todos', (req, res) => {
     const {title, description} = req.body;
