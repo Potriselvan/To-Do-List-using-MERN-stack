@@ -4,9 +4,17 @@ export default function Todo() {
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [todos, setTodos] = useState([])
+    const apiUrl = "http://localhost:3000/"
 
     const handleSubmit = () => {
         //check inputs
+        if (title.trim() !== '' && description.trim() !== '') {
+            fetch(apiUrl+"/todos")
+
+            //add item to list
+            setTodos([...todos, {title, description}])
+        }
     }
 
     return <>
