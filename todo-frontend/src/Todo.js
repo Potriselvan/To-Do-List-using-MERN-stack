@@ -43,7 +43,7 @@ export default function Todo() {
                 <input placeholder="Description" onChange={(e) => setDescription(e.target.value)} value={description} className="form-control" type="text" />
                 <button className="btn btn-dark" onClick={handleSubmit}>Submit</button>
             </div>
-            {error && <p>{error}</p>}
+            {error && <p className="text-danger">{error}</p>}
         </div>
     </>
 }
