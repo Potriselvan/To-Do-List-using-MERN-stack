@@ -10,7 +10,13 @@ export default function Todo() {
     const handleSubmit = () => {
         //check inputs
         if (title.trim() !== '' && description.trim() !== '') {
-            fetch(apiUrl+"/todos")
+            fetch(apiUrl+"/todos", {
+                method: "POST",
+                headers: {
+                    'Content-Type':'applicatoin/json'
+                },
+                body: JSON.stringify(title, description)
+            })
 
             //add item to list
             setTodos([...todos, {title, description}])
