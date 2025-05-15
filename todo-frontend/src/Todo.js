@@ -15,7 +15,7 @@ export default function Todo() {
             fetch(apiUrl+"/todos", {
                 method: "POST",
                 headers: {
-                    'Content-Type':'applicatoin/json'
+                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(title, description)
             }).then((res) =>{
