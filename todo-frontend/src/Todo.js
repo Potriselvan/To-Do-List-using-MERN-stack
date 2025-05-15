@@ -6,6 +6,7 @@ export default function Todo() {
     const [description, setDescription] = useState("");
     const [todos, setTodos] = useState([]);
     const [error, setError] = useState([]);
+    const [message, setMessage] = useState("");
     const apiUrl = "http://localhost:3000"
 
     const handleSubmit = () => {
@@ -21,6 +22,7 @@ export default function Todo() {
                 if(res.ok) {
                     //add item to list
                     setTodos([...todos, {title, description}])
+                    setMessage("Item added successfully")
                 }else {
                     //set error
                     setError("Unable to create Todo item")
@@ -35,7 +37,7 @@ export default function Todo() {
         </div>
         <div className="row">
             <h3>Add Item</h3>
-            <p className="text-success">Item added successfully</p>
+            {message && <p className="text-success">{message}</p>}
             <div className="form-group d-flex gap-2">
                 <input placeholder="Title" onChange={(e) => setTitle(e.target.value)} value={title} className="form-control" type="text" />
                 <input placeholder="Description" onChange={(e) => setDescription(e.target.value)} value={description} className="form-control" type="text" />
