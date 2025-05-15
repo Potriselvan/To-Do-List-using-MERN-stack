@@ -7,7 +7,7 @@ export default function Todo() {
     const [todos, setTodos] = useState([]);
     const [error, setError] = useState([]);
     const [message, setMessage] = useState("");
-    const apiUrl = "http://localhost:3000"
+    const apiUrl = "http://localhost:8000"
 
     const handleSubmit = () => {
         //check inputs
