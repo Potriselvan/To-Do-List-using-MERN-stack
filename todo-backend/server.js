@@ -20,7 +20,10 @@ mongoose.connect('mongodb://localhost:27017/mern-app')
 
 //creating schema
 const todoSchema = new mongoose.Schema({
-    title:String,
+    title:{
+        required:true,
+        type:String
+    },
     description:String
 })
 
@@ -45,14 +48,54 @@ app.post('/todos', async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        res.status(500);
+        res.status(500).json({message: error.message});
     }
 
 })
 
 //Get all items
-app.get('/todos', (req, res) => {
-    res.json(todos);
+app.get('/todos', async (req, res) => {
+    try{
+        const todos = await todoModel.find();
+        res.json(todos);
+    } catch (error){
+        console.log(error)
+        res.status(500).json({message: erro.message});
+    }
+    
+})
+
+//Update a todo item
+app.put("/todos/:id", async (req, res) => {
+    try {
+        const {title, description} = req.body;
+        const id = req.params.id;
+        const updatedTodo = await todoModel.findByIdAndUpdate(
+            id,
+            { title, description},
+            { new: true}
+        )
+
+        if (!updatedTodo) {
+            return res.status(404).json({ message : "Todo not found"})
+        }
+        res.json(updatedTodo)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message : error.message});
+    }
+})
+
+//Delete a todo item
+app.delete('/todos/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await todoModel.findByIdAndDelete(id);
+        res. status(204).end();
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: error.message})
+    }
 })
 
 //Start the server
