@@ -1,10 +1,12 @@
 //Express
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 //create an instance of express
 const app = express();
 app.use(express.json())
+app.use(cors())
 
 //Sample in-memory storage for todo items
 //let todos = []; no more required as db is used
