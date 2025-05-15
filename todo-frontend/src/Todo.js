@@ -4,8 +4,9 @@ export default function Todo() {
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [todos, setTodos] = useState([])
-    const apiUrl = "http://localhost:3000/"
+    const [todos, setTodos] = useState([]);
+    const [error, setError] = useState([]);
+    const apiUrl = "http://localhost:3000"
 
     const handleSubmit = () => {
         //check inputs
@@ -16,10 +17,15 @@ export default function Todo() {
                     'Content-Type':'applicatoin/json'
                 },
                 body: JSON.stringify(title, description)
-            })
-
-            //add item to list
-            setTodos([...todos, {title, description}])
+            }).then((res) =>{
+                if(res.ok) {
+                    //add item to list
+                    setTodos([...todos, {title, description}])
+                }else {
+                    //set error
+                    setError("Unable to create Todo item")
+                }
+            })            
         }
     }
 
@@ -35,6 +41,7 @@ export default function Todo() {
                 <input placeholder="Description" onChange={(e) => setDescription(e.target.value)} value={description} className="form-control" type="text" />
                 <button className="btn btn-dark" onClick={handleSubmit}>Submit</button>
             </div>
+            {error && <p>{error}</p>}
         </div>
     </>
 }
