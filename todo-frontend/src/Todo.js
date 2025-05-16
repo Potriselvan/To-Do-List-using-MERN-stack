@@ -17,7 +17,7 @@ export default function Todo() {
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify(title, description)
+                body: JSON.stringify({title, description})
             }).then((res) =>{
                 if(res.ok) {
                     //add item to list
