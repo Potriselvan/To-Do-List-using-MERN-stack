@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Todo() {
     
@@ -35,6 +35,18 @@ export default function Todo() {
                 setError("Unable to create Todo item")
             })            
         }
+    }
+
+    useEffect(() => {
+        getItems()
+    }, [])
+
+    const getItems = () => {
+        fetch(apiUrl+"/todos")
+        .then((res) => res.json())
+        .then((res) => {
+            setTodos(res)
+        })
     }
 
     return <>
