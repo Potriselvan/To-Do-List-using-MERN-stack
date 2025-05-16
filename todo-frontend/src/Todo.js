@@ -23,6 +23,9 @@ export default function Todo() {
                     //add item to list
                     setTodos([...todos, {title, description}])
                     setMessage("Item added successfully")
+                    setTimeout(() => {
+                        setMessage("");
+                    },3000)
                 }else {
                     //set error
                     setError("Unable to create Todo item")
